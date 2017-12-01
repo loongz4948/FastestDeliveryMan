@@ -1,20 +1,28 @@
+package Java;
+import Domain.Menu;
+//import Domain.Order;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class OrderMenu {
     //public ArrayList<SelectMenu> menuList = new ArrayList<>();
+    //ArrayList<Order> order = new ArrayList<>();
     
     public static void FoodMenu(Menu[] menuArr){
         boolean isTrue;
         char choice;
         String temp;
         double totalPrice = 0;
+        double subTotal = 0;
         Scanner input = new Scanner(System.in);
         ArrayList<Menu> menu = new ArrayList<Menu>();
-        //ArrayList<SelectMenu> selectMenu = new ArrayList<SelectMenu>();
+        
+        //int [] quantity = new int[100];
         
         do{
             System.out.println("\n\n-- FOOD MENU --");
+            System.out.println("   Food ID\t\tFood Name\t\t\tUnit Price(RM)");
+            System.out.println("-------------------------------------------------------------------------------");
             for(int i = 0; i < menuArr.length; i++){
                 System.out.print((i+1) + ". "+menuArr[i]);
                 System.out.println();
@@ -23,20 +31,34 @@ public class OrderMenu {
             int selection = input.nextInt();
             System.out.println();
             Menu m1 = new Menu(menuArr[selection-1].getFoodID(),menuArr[selection-1].getFoodName(),menuArr[selection-1].getPrice());
-            System.out.print("Quantity : ");
-            int quantity = input.nextInt();
-            
             menu.add(m1);
+            System.out.print("Quantity : ");
+            //int i = input.nextInt();
+            //Order o1 = new Order(orderArr[i].getQuantity());
+            //order.add(o1);
+            int quantity = input.nextInt();
+            totalPrice += (m1.getPrice() * quantity);
             
-            System.out.print("\n\nOrders Details\n");
-            System.out.println("  Food ID\t\tFood Name\t\tUnit Price\tQuantity");
-            System.out.println("---------------------------------------------------------------------");
+            
+            System.out.print("\n\n--ORDERS DETAILS--\n");
+            System.out.println("  Food ID\t\tFood Name\t\t\tUnit Price(RM)\t\tQuantity\t\tSubTotal(RM)");
+            System.out.println("-----------------------------------------------------------------------------------------------------------------------");
     		for(int i=0; i<menu.size(); i++){
     			System.out.print((i+1)+ ". " +menu.get(i));
-                        System.out.print("\t\t "+quantity);
+                        System.out.printf("\t%5d",quantity);
+                        subTotal += (m1.getPrice() * quantity);
+                        System.out.printf("\t\t%15.2f",subTotal);
+                        System.out.println();
+                        
+                }
+                
+                System.out.printf("\nTotal Price : RM %.2f",totalPrice);
+                /*for(i=0;i<order.size();i++){
+                        System.out.print("\t\t "+order.get(i));
+                }*/
     			System.out.println();
-    		}
-            //totalPrice += (m1.getPrice()*quantity);
+    		
+            //totalPrice += (m1.getPrice() * o1.getQuantity());
             
             //validation for char
             do{
@@ -66,6 +88,7 @@ public class OrderMenu {
         menuArr[3] = new Menu("B0002","Coca Cola",3.00);
         menuArr[4] = new Menu("D0001","Chocolate Cake (1pc)",6.50);
         
+        //Order[] orderArr = new Order[100];
         Scanner input = new Scanner(System.in);
         
         
@@ -86,6 +109,10 @@ public class OrderMenu {
                     break;
                 case 0:
                     System.exit(-1);
+            }
+            if(choice>1){
+                System.out.println("There are no option 2.Please Type Again!\n\n");
+                displayMenu();
             }
         }while(choice != 0);
     }

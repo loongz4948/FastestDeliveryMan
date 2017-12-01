@@ -1,4 +1,4 @@
-
+package Domain;
 public class Menu {
 
         private String foodID;
@@ -36,6 +36,6 @@ public class Menu {
         }
         
         public String toString(){
-            return String.format("%5s\t\t%-20s\t %.2f",foodID,foodName,price);
+            return String.format("%5s\t\t%-20s\t\t%10.2f\t",foodID,foodName,price);
         }
 }
