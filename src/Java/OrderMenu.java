@@ -26,29 +26,38 @@ public class OrderMenu {
             for(int i = 0; i < menuArr.length; i++){
                 System.out.print((i+1) + ". "+menuArr[i]);
                 System.out.println();
+                
             }
             System.out.println("Select Menu [1.. "+menuArr.length+"] : ");
             int selection = input.nextInt();
             System.out.println();
-            Menu m1 = new Menu(menuArr[selection-1].getFoodID(),menuArr[selection-1].getFoodName(),menuArr[selection-1].getPrice());
-            menu.add(m1);
+//            System.out.print("Quantity : ");
+//            int quantity = input.nextInt();
+            Menu m1 = new Menu(menuArr[selection-1].getFoodID(),menuArr[selection-1].getFoodName(),menuArr[selection-1].getPrice(),menuArr[selection-1].getQuantity());
             System.out.print("Quantity : ");
+            int quantity = input.nextInt();
+            m1.setQuantity(quantity);
+            
+            menu.add(m1);
+            totalPrice += (m1.getPrice() * m1.getQuantity());
+//            subTotal += m1.getPrice() * m1.getQuantity();
+            //menu.remove(m1);
+
             //int i = input.nextInt();
             //Order o1 = new Order(orderArr[i].getQuantity());
             //order.add(o1);
-            int quantity = input.nextInt();
-            totalPrice += (m1.getPrice() * quantity);
-            
+
             
             System.out.print("\n\n--ORDERS DETAILS--\n");
             System.out.println("  Food ID\t\tFood Name\t\t\tUnit Price(RM)\t\tQuantity\t\tSubTotal(RM)");
             System.out.println("-----------------------------------------------------------------------------------------------------------------------");
     		for(int i=0; i<menu.size(); i++){
     			System.out.print((i+1)+ ". " +menu.get(i));
-                        System.out.printf("\t%5d",quantity);
-                        subTotal += (m1.getPrice() * quantity);
+                        System.out.printf("\t%5d",m1.getQuantity());
+                        subTotal += m1.getPrice() * m1.getQuantity();
                         System.out.printf("\t\t%15.2f",subTotal);
                         System.out.println();
+                        
                         
                 }
                 
@@ -60,10 +69,45 @@ public class OrderMenu {
     		
             //totalPrice += (m1.getPrice() * o1.getQuantity());
             
+            do{
+      	 		isTrue = true;
+       	 		System.out.print("\nDo you confirm your order(Y/N)? "); 
+       	 		temp = input.next();
+       	        
+       	 		if (validateChar(temp)){
+       				if ( temp.toUpperCase().charAt(0) == 'N'){
+       					isTrue = false;
+//                                        menu.remove(m1);
+                                       System.out.println("Your order had been cancelled!\n\n"); 
+//                                       System.out.print("\n\n--ORDERS DETAILS--\n");
+//                                       System.out.println("  Food ID\t\tFood Name\t\t\tUnit Price(RM)\t\tQuantity\t\tSubTotal(RM)");
+//                                       System.out.println("-----------------------------------------------------------------------------------------------------------------------");
+//                                       for(int i=0; i<menu.size(); i++){
+//                                            System.out.print((i+1)+ ". " +menu.get(i));
+//                                            System.out.printf("\t%5d",m1.getQuantity());
+//                                            subTotal += (m1.getPrice() * m1.getQuantity());
+//                                            System.out.printf("\t\t%15.2f",subTotal);
+//                                            System.out.println();
+                                         displayMenu();
+                        
+//                                    }
+                                    System.out.printf("\nTotal Price : RM %.2f",totalPrice-subTotal);
+                
+                                        //displayMenu();
+                                }else if(temp.toUpperCase().charAt(0) == 'Y'){
+                                    isTrue =false;
+                                    System.out.print("Your order had been confirmed!\n");
+                                }else
+                                    System.out.println("Invalid option!Please try again!");
+                                
+       	 		}
+       	
+       		}while(isTrue); 
+            
             //validation for char
             do{
       	 		isTrue = true;
-       	 		System.out.print("\nDo you want to continue(Y/N)? "); 
+       	 		System.out.print("\nDo you want to add on your order(Y/N)? "); 
        	 		temp = input.next();
        	        
        	 		if (validateChar(temp)){
@@ -73,12 +117,14 @@ public class OrderMenu {
        	
        		}while(isTrue); 
             choice = temp.charAt(0);
+            
         }while(Character.toUpperCase(choice) == 'Y');
         
 
     }
     
     public static void displayMenu(){
+        
         int choice;
         
         Menu[] menuArr = new Menu[5];
