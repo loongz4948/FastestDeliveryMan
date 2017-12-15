@@ -4,11 +4,27 @@ public class Menu {
         private String foodID;
         private String foodName;
         private double price;
+        private int quantity;
         
         public Menu(String foodID,String foodName,double price){
            this.foodID = foodID;
            this.foodName = foodName;
            this.price = price;
+           this.quantity = 0;
+        }
+        
+        public Menu(String foodID,String foodName,double price,int quantity){
+           this.foodID = foodID;
+           this.foodName = foodName;
+           this.price = price;
+           this.quantity = quantity;
+        }
+        
+        public Menu(int quantity){
+           this.foodID = "";
+           this.foodName = "";
+           this.price = 0.0;
+           this.quantity = quantity;
         }
         
         public void setFoodID(String foodID){
@@ -33,6 +49,14 @@ public class Menu {
         
         public double getPrice(){
             return price;
+        }
+        
+        public void setQuantity(int quantity){
+            this.quantity = quantity;
+        }
+        
+        public int getQuantity(){
+            return quantity;
         }
         
         public String toString(){

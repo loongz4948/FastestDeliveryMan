@@ -143,16 +143,29 @@ public class OrderMenu {
             String custID = input.nextLine();
             System.out.println("\n\nMAIN MENU");
             System.out.println("=========");
-            System.out.println("[1] Order");
+            System.out.println("[1] Customer Menu");
             System.out.print("\nPlease enter your choice. [0] is to Exit : ");
             
             choice = input.nextInt();
             input.nextLine();
             
             switch(choice){
-                case 1:
-                    FoodMenu(menuArr);
-                    break;
+                case 1:{
+                    System.out.println("\n\n--CUSTOMER MENU--");
+                    System.out.println("=================");
+                    System.out.println("[1] Order");
+                    System.out.print("\nPlease enter your choice. [0] is to Exit : ");
+            
+                    choice = input.nextInt();
+                    input.nextLine();
+                    switch(choice){
+                        case 1:
+                            FoodMenu(menuArr);
+                            break;
+                        case 0:
+                            System.exit(-1);
+                    }
+                }
                 case 0:
                     System.exit(-1);
             }
